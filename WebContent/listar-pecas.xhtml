@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="ISO-8859-1" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	  xmlns:f="http://java.sun.com/jsf/core"
+	  xmlns:h="http://java.sun.com/jsf/html"
+	  xmlns:ui="http://java.sun.com/jsf/facelets"
+	  xmlns:p="http://primefaces.org/ui">
+
+<ui:composition template="_template.xhtml">
+	<ui:define name="corpo">
+		
+		
+		<div id="conteudo">
+			<h2><h:outputLabel styleClass="titulo_" style="margin-left: -125px !important;" value="Peças"></h:outputLabel></h2>
+			<h:form id="lista">		
+				<h:form id="dialog" rendered="#{empty pecaMB.pecas}">
+					
+					<p:dialog header="Acesso Negado" resizable="false" widgetVar="dlg2" modal="true" height="80" closable="false"
+				  	visible="true" draggable="false" >
+    			
+    				<h:outputText value="Não há peças cadastradas!" />
+    				<p:commandButton value="Voltar ao Menu" action="menu"></p:commandButton>
+    				
+				
+					</p:dialog>   
+				</h:form>
+				
+				<p:dataTable value="#{pecaMB.pecas}" var="p" paginator="true" rows="4">
+									
+					<p:column headerText="ID">
+						#{p.id}
+					</p:column>
+					
+					<p:column headerText="Nome">
+						#{p.nome}
+					</p:column>
+					
+					<p:column headerText="Fornecedor">
+						#{p.fornecedor}
+					</p:column>
+					
+					<p:column headerText="Tipo">
+						#{p.tipo}
+					</p:column>
+					
+					<p:column headerText="Marca">
+						#{p.marca}
+					</p:column>
+					
+					<p:column headerText="Disponível">
+						#{p.quantidade}
+					</p:column>
+					
+					<p:column headerText="Ações">
+						<p:commandButton icon="fa fa-fw fa-edit" ajax="false" styleClass="btn btn-warning" action="#{pecaMB.alterar(p)}"
+						rendered="#{usuarioMB.atendente}"></p:commandButton>
+						
+						<p:commandButton icon="fa fa-fw fa-remove" styleClass="btn btn-danger" actionListener="#{pecaMB.remove(p)}"
+						rendered="#{usuarioMB.gerente}">
+							<f:ajax render="@form"></f:ajax>
+						</p:commandButton>
+						
+						<p:commandButton id="rp" icon="fa fa-fw fa-arrow-down" styleClass="btn btn-info" action="#{pecaMB.retirar(p)}"
+						rendered="#{usuarioMB.mecanico == true and p.quantidade gt 0}">
+						</p:commandButton>
+						<p:tooltip id="ttrp" for="rp" value="Retirar Peça" position="top"/>
+						
+						
+						
+						
+					</p:column>
+				</p:dataTable>
+			</h:form>
+		</div>
+		
+	</ui:define>
+
+</ui:composition>
+
+</html>

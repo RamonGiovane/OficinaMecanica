@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="ISO-8859-1" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui">
+
+<ui:composition template="_template.xhtml">
+	<ui:define name="corpo">
+
+		
+		
+		
+		<div id="conteudo">
+			
+			<p:outputLabel styleClass="ui-selectonemenu-label" value="Nada a exibir, por enquanto!" rendered="#{!usuarioMB.gerente or !ordemMB.ordemFinalizada}"></p:outputLabel>
+			<h2>
+				<h:outputLabel style="margin-left: -20px !important;" styleClass="titulo_" value="Ordem Finalizada" rendered="#{ordemMB.ordemFinalizada and usuarioMB.gerente}"></h:outputLabel>
+			</h2> 
+
+
+			<h:form id="tabela" rendered="#{ordemMB.ordemFinalizada and usuarioMB.gerente}">
+				<p:fieldset legend="Recibo">
+					<p:outputLabel styleClass="ui-selectonemenu-label"
+						value="------------------ Nota Fiscal-Oficina Mecânica ------------------"></p:outputLabel>
+					<br />
+					<p:outputLabel styleClass="ui-selectonemenu-label"
+						value="Ordem Nº #{ordemMB.ordem.id} - Data de Orçamento  #{ordemMB.formatarData(ordemMB.ordem.dataOrcamento)}"></p:outputLabel>
+					<br />
+					<br></br>
+					<p:outputLabel styleClass="ui-selectonemenu-label"
+						value="------------------ Cliente: #{ordemMB.ordem.veiculo.cliente.nome} ------------------"></p:outputLabel>
+					<br />
+					<br></br>
+					<p:outputLabel styleClass="ui-selectonemenu-label"
+						value="CPF: #{ordemMB.ordem.veiculo.cliente.CPF}"></p:outputLabel>
+					<br />
+					<br></br>
+					<p:outputLabel styleClass="ui-selectonemenu-label"
+						value="Veículo: #{ordemMB.ordem.veiculo.modelo} - #{ordemMB.ordem.veiculo.marca}"></p:outputLabel>
+					<br />
+					<br></br>
+					<p:outputLabel styleClass="ui-selectonemenu-label"
+						value="Placa: #{ordemMB.ordem.veiculo.placa}"></p:outputLabel>
+					<br />
+					<br></br>
+					<p:outputLabel styleClass="ui-selectonemenu-label"
+						value="------------------ Serviços Realizados ------------------"></p:outputLabel>
+					<br />
+					<br></br>
+					<p:outputLabel styleClass="ui-selectonemenu-label"
+						value="#{ordemMB.ordem.servico}"></p:outputLabel>
+					<br />
+					<br></br>
+					<p:outputLabel styleClass="ui-selectonemenu-label"
+						value="------------------ Peças Utilizadas ------------------"></p:outputLabel>
+					<br />
+					<br></br>
+					<ui:repeat value="#{ordemMB.ordem.pecasDaOrdem}" var="x"
+						varStatus="c">
+						<br></br>
+						<p:outputLabel styleClass="ui-selectonemenu-label"
+							value="#{c.index+1}) #{x.peca.nome} x#{x.quantidade}"></p:outputLabel>
+						<br />
+						<br></br>
+					</ui:repeat>
+					<p:outputLabel styleClass="ui-selectonemenu-label"
+						value="------------------ Valor Total: R$ #{ordemMB.ordem.valor} -------------------"></p:outputLabel>
+					<br />
+					<br></br>
+
+					
+				</p:fieldset>
+				<p:commandButton style="margin-left: 5px !important;" value="Voltar ao Menu"
+						ajax="false" action="menu"></p:commandButton>
+
+			</h:form>
+		</div>
+
+	</ui:define>
+
+</ui:composition>
+
+
+</html>

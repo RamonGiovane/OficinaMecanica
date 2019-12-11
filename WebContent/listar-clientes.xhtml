@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="ISO-8859-1" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	  xmlns:f="http://java.sun.com/jsf/core"
+	  xmlns:h="http://java.sun.com/jsf/html"
+	  xmlns:ui="http://java.sun.com/jsf/facelets"
+	  xmlns:p="http://primefaces.org/ui">
+
+<ui:composition template="_template.xhtml">
+	<ui:define name="corpo">
+		
+		<div id="conteudo">
+			<h2><h:outputLabel styleClass="titulo" style="margin-left: -107px !important;" value="Clientes"></h:outputLabel></h2>
+			
+			<h:form rendered="#{empty clienteMB.clientes}">
+				<p:dialog header="Acesso Negado" resizable="false" widgetVar="dlg2" modal="true" height="80" closable="false"
+				  visible="true" draggable="false">
+	    			<h:outputText value="Não há clientes cadastrados!" />
+	    			<p:commandButton value="Voltar ao Menu" action="menu"></p:commandButton>
+				</p:dialog>   
+			</h:form>			
+			
+			
+			<h:form id="tabela">
+				<p:dataTable value="#{clienteMB.clientes}" var="c" paginator="true" rows="4">				
+				
+				
+					<p:column headerText="ID">
+						#{c.id}
+					</p:column>
+					
+					<p:column headerText="Nome">
+						#{c.nome}
+					</p:column>
+					
+					<p:column headerText="CPF">
+						#{c.CPF}
+					</p:column>
+					
+					<p:column headerText="Telefone">
+						#{c.telefone}
+					</p:column>
+					
+					<p:column headerText="Email">
+						#{c.email}
+					</p:column>
+					
+					<p:column headerText="Endereço">
+						#{c.endereco}
+					</p:column>
+					
+
+					
+					
+					<p:column headerText="Ações" rendered="#{!usuarioMB.mecanico}">
+						<p:commandButton icon="fa fa-fw fa-edit" ajax="false" action="#{clienteMB.alterar(c)}" styleClass="btn btn-warning" 
+						rendered="#{usuarioMB.atendente}"  />
+						<p:commandButton icon="fa fa-fw fa-remove" styleClass="btn btn-danger" actionListener="#{clienteMB.remove(c)}" rendered="#{usuarioMB.gerente}">
+							<f:ajax render="@form"></f:ajax>
+						</p:commandButton>
+					</p:column>
+					
+				</p:dataTable>
+			</h:form>
+		</div>
+	
+	</ui:define>
+
+</ui:composition>
+
+</html>

@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="ISO-8859-1" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	  xmlns:f="http://java.sun.com/jsf/core"
+	  xmlns:h="http://java.sun.com/jsf/html"
+	  xmlns:ui="http://java.sun.com/jsf/facelets"
+	  xmlns:p="http://primefaces.org/ui">
+
+<ui:composition template="_template.xhtml">
+	<ui:define name="corpo">
+		
+		<h:form id="tabela">
+			<h2><h:outputLabel styleClass="titulo" style="margin-left: -105px !important;" value="Veículos"></h:outputLabel></h2>
+			<h:form rendered="#{empty veiculoMB.veiculos}">
+				<p:dialog header="Acesso Negado" resizable="false" widgetVar="dlg2" modal="true" height="80" closable="false"
+				  visible="true" draggable="false">
+    			
+    				<h:outputText value="Não há veículos cadastrados!" />
+    				<p:commandButton value="Voltar ao Menu" action="menu"></p:commandButton>
+					<f:ajax render="@form"></f:ajax>
+				</p:dialog>   
+			</h:form>
+			
+			<div id="conteudo">
+			
+				<p:dataTable value="#{veiculoMB.veiculos}" var="v" paginator="true" rows="4">
+					<p:column headerText="ID">
+						#{v.id}
+					</p:column>
+					
+					<p:column headerText="Modelo">
+						#{v.modelo}
+					</p:column>
+					
+					<p:column headerText="Marca">
+						#{v.marca}
+					</p:column>
+					
+					<p:column headerText="Placa">
+						#{v.placa}
+					</p:column>
+					
+					<p:column headerText="Ano de Fabricação">
+						#{v.anoFabricacao}
+					</p:column>
+					
+					<p:column headerText="Ano do Modelo">
+						#{v.anoModelo}
+					</p:column>
+					
+					
+					<p:column headerText="Proprietátio">
+						#{v.cliente.nome}
+					</p:column>
+					
+					<p:column headerText="Ações"  rendered="#{!usuarioMB.mecanico}">
+							<p:commandButton icon="fa fa-fw fa-edit" ajax="false" action="#{veiculoMB.altera(v)}"  rendered="#{usuarioMB.atendente}"
+							 styleClass="btn btn-warning"></p:commandButton>
+							<p:commandButton icon="fa fa-fw fa-remove" styleClass="btn btn-danger"  rendered="#{usuarioMB.gerente}"
+							actionListener="#{veiculoMB.remove(v)}">
+								<f:ajax render="@form"></f:ajax>
+							</p:commandButton>
+
+					</p:column>
+				</p:dataTable>
+			</div>
+		</h:form>
+	</ui:define>
+
+</ui:composition>
+
+</html>

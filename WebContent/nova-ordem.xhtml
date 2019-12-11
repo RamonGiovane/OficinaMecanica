@@ -1,0 +1,131 @@
+<?xml version="1.0" encoding="ISO-8859-1" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui">
+
+<f:event listener="#{ordemMB.resetar}" type="preRenderView" />
+<ui:composition template="_template.xhtml">
+	
+	<ui:define name="corpo">
+
+		<div id="conteudo">
+
+			<h:form rendered="#{empty veiculoMB.veiculos}" id="dialog_veiculos">
+				<p:dialog header="Acesso Negado" resizable="false" widgetVar="dlg2"
+					modal="true" height="80" closable="false" visible="true" draggable="false" >
+	
+					<h:outputText value="Não há veículos cadastrados!" />
+					<p:commandButton value="Voltar ao Menu" action="menu"></p:commandButton>
+	
+				</p:dialog>
+			</h:form>
+		
+			<h:form rendered="#{empty pecaMB.pecas}" id="dialog_pecas">
+				<p:dialog header="Acesso Negado" resizable="false" widgetVar="dlg2"
+					modal="true" height="80" closable="false" visible="true" draggable="false">
+	
+					<h:outputText value="Não há peças cadastradas!" />
+					<p:commandButton value="Voltar ao Menu" action="menu"></p:commandButton>
+	
+				</p:dialog>
+			</h:form>
+			
+				<h:form rendered="#{!usuarioMB.mecanico}" id="dialog_usuario">
+				<p:dialog header="Acesso Negado" resizable="false" widgetVar="dlg2"
+					modal="true" height="80" closable="false" visible="true" draggable="false">
+	
+					<h:outputText value="Desculpe, #{usuarioMB.usuario.usuario}, você não tem permissão para acessar esta página!" />
+					<p:commandButton value="Voltar ao Menu" action="menu"></p:commandButton>
+	
+				</p:dialog>
+			</h:form>
+			
+
+
+			<h:form id="cadastro">
+					<h2>
+						<h:outputLabel  value="Novo Orçamento"  styleClass="titulo"></h:outputLabel>
+					</h2>
+
+					<p:fieldset legend="Dados do Orçamento">
+						<h:outputLabel value="Descrição do Serviço:" for="servico"></h:outputLabel>
+						<p:inputTextarea id="servico" value="#{ordemMB.ordem.servico}"
+							required="true" requiredMessage="Descreva o serviço a ser realizado!"
+						></p:inputTextarea>
+
+						<h:outputLabel value="Valor:" for="valor"></h:outputLabel>
+						<p:inputNumber id="status" value="#{ordemMB.ordem.valor}" 
+							required="true" requiredMessage="Digite o valor da ordem!">
+						</p:inputNumber>							
+
+						<h:outputLabel value="Veículo:" for="veiculox"></h:outputLabel>
+						<p:selectOneMenu id="veiculo" value="#{ordemMB.idVeiculo}" required="true">
+							<f:selectItems value="#{ordemMB.veiculos}" var="v"
+								itemLabel="Modelo: #{v.modelo} - Placa: #{v.placa}" itemValue="#{v.id}">
+							</f:selectItems>
+							<p:ajax event="change" process="@this" update="@this"></p:ajax>
+						</p:selectOneMenu>
+					
+					 </p:fieldset>
+					
+					 <p:fieldset legend="Seleção de Peças">
+						<div>
+							<h:outputLabel value="Peça:" for="peca"></h:outputLabel>
+						
+								<p:selectOneMenu id="peca" value="#{ordemMB.idPeca}">
+									<f:selectItems value="#{ordemMB.pecas}" var="p"
+										itemLabel="#{p.nome}" itemValue="#{p.id}">
+									</f:selectItems>
+								</p:selectOneMenu>
+							
+						</div>
+						
+						<div>
+							<h:outputLabel for="minMax" value="Quantidade:"></h:outputLabel>
+							<p:inputText id="minMax" value="#{ordemMB.quantidadePeca}" 
+								required="true" requiredMessage="Digite a quantidade de peças!"></p:inputText>
+							<p:commandButton icon="ui ui-icon-plus"  value="Adicionar" 
+								id="adicionar" styleClass="btn btn-info" action="#{ordemMB.selecionarPeca}">
+								<f:ajax execute="@form" render=":cadastro :lista"></f:ajax>
+							</p:commandButton>
+						</div>
+					</p:fieldset>
+					
+			
+					<h:commandButton id="gravar" value="Salvar" action="#{ordemMB.grava}"></h:commandButton>
+
+			</h:form>
+			
+				
+			<h:form id="lista" rendered="#{not empty ordemMB.pecas}">
+				<h3>Peças Selecionadas</h3>
+				<h:dataTable value="#{ordemMB.ordem.pecasDaOrdem}" var="item"
+					styleClass="dados" rowClasses="impar,par">
+					<h:column>
+						<f:facet name="header">Peça</f:facet>
+						#{item.peca.nome}
+					</h:column>
+					<h:column>
+						<f:facet name="header">Quantidade</f:facet>
+						#{item.quantidade}
+					</h:column>
+					<h:column>
+						<f:facet name="header">Remover</f:facet>
+						<p:commandButton icon="fa fa-fw fa-remove" styleClass="btn btn-danger" actionListener="#{ordemMB.desconsiderarPeca(item)}">
+							<f:ajax render="@form"></f:ajax>
+						</p:commandButton>
+					</h:column>
+				</h:dataTable>
+			</h:form>
+		</div>
+
+
+	</ui:define>
+
+</ui:composition>
+
+
+</html>

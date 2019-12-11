@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="ISO-8859-1" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	  xmlns:h="http://java.sun.com/jsf/html"
+	  xmlns:f="http://java.sun.com/jsf/core"
+	  xmlns:ui="http://java.sun.com/jsf/facelets"
+	  >
+
+<ui:composition template="_template.xhtml">
+
+
+<ui:define name="corpo">
+	<div id="conteudo">
+		
+		<h:form>
+			<h2>
+				<h:outputLabel styleClass="titulo" value="Menu Principal"></h:outputLabel>
+			</h2>
+			<div id="conteudo">
+				<h3>Cliente</h3>
+				<br></br>
+				<h:commandLink value="Novo Cliente" style="text-decoration: none; margin-right: 5px !important;" styleClass="btn btn-info" action="novo-cliente.xhtml" rendered="#{usuarioMB.atendente}"></h:commandLink>
+				<h:commandLink value="Novo Veículo"  style="text-decoration: none; margin-right: 5px !important;" styleClass="btn btn-info" action="novo-veiculo.xhtml" rendered="#{usuarioMB.atendente}"></h:commandLink>
+				<h:commandLink value="Lista de Clientes" style="text-decoration: none; margin-right: 5px !important;" styleClass="btn btn-info" action="listar-clientes.xhtml"></h:commandLink>
+				<h:commandLink value="Lista de Veículos" style="text-decoration: none;" styleClass="btn btn-info" action="listar-veiculos.xhtml"></h:commandLink>
+			</div>
+			
+			
+			<div id="conteudo">
+				<h3>Peça</h3>
+				<br></br>
+				<h:commandLink value="Nova Peça" style="text-decoration: none; margin-right: 5px !important;" styleClass="btn btn-warning" action="nova-peca.xhtml" rendered="#{usuarioMB.atendente}"></h:commandLink>
+				<h:commandLink value="Lista de Peças" style="text-decoration: none; margin-right: 5px !important;" styleClass="btn btn-warning" action="listar-pecas.xhtml"></h:commandLink>
+			</div>
+			
+			<div id="conteudo">
+				<h3>Ordem de Serviço</h3>
+				<br></br>
+				<h:commandLink style="text-decoration: none;  margin-right: 5px !important;" value="Nova Ordem de Serviço" styleClass="btn btn-inverse" action="nova-ordem.xhtml" rendered="#{usuarioMB.mecanico}"></h:commandLink>
+				<h:commandLink style="text-decoration: none;  margin-right: 5px !important;" value="Registrar Pagamento" styleClass="btn btn-inverse" action="pagamento.xhtml" rendered="#{usuarioMB.gerente}"></h:commandLink>
+				<h:commandLink style="text-decoration: none;  margin-right: 5px !important;" value="Lista de Ordens" styleClass="btn btn-inverse" action="listar-ordens.xhtml"></h:commandLink>
+			</div>
+			
+		</h:form>
+	</div>
+</ui:define>
+</ui:composition>
+</html>

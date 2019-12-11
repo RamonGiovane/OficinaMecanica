@@ -1,0 +1,102 @@
+<?xml version="1.0" encoding="ISO-8859-1" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui">
+
+<ui:composition template="_template.xhtml">
+	<ui:define name="corpo">
+	
+		<div id="conteudo">
+
+			<h:form rendered="#{!usuarioMB.gerente}" id="dialog_veiculos">
+				<p:dialog header="Acesso Negado" resizable="false" widgetVar="dlg2"
+					modal="true" height="80" closable="false" visible="true"
+					draggable="false">
+
+					<h:outputText
+						value="Desculpe, #{usuarioMB.usuario.usuario}, você não tem permissão para acessar esta página!" />
+
+					<p:commandButton value="Voltar ao Menu" action="menu"></p:commandButton>
+
+				</p:dialog>
+			</h:form>
+
+			<h:form rendered="#{empty ordemMB.ordensAprovadas}">
+				<p:dialog header="Acesso Negado" resizable="false" widgetVar="dlg2"
+					modal="true" height="80" closable="false" visible="true"
+					draggable="false">
+					<h:outputText value="Não há ordens a serem quitadas!" />
+					<p:commandButton value="Voltar ao Menu" action="menu"></p:commandButton>
+				</p:dialog>
+			</h:form>
+
+			<h2>
+				<h:outputLabel style="margin-left:-30px !important;"
+					styleClass="titulo_" value="Novo Pagamento"></h:outputLabel>
+			</h2>
+			<p:fieldset legend="Selecionar Ordem">
+
+				<h:form id="cadastro">
+
+
+
+					<h4>Digite o cpf de um cliente, a data de uma ordem ou a placa
+						de um veículo</h4>
+					<p:selectOneListbox id="pesquisar" value="#{ordemMB.idOrdem}"
+						filterMatchMode="contains" filter="true"
+						style="width: 480px !important; margin-bottom: 15px;">
+						<f:selectItems value="#{ordemMB.ordensAprovadas}" var="o"
+							itemLabel="Data: #{ordemMB.formatarData(o.dataOrcamento)} - CPF Cliente: #{o.veiculo.cliente.CPF}
+							 - Placa Veículo: #{o.veiculo.placa}"
+							itemValue="#{o.id}">
+
+						</f:selectItems>
+					</p:selectOneListbox>
+
+					<p:commandButton id="bt" style="margin-left: 0px;"
+						styleClass="btn btn-success" icon="fa fa-fw fa-check"
+						value="Selecionar Ordem"
+						actionListener="#{ordemMB.selecionarOrdem}"
+						oncomplete="PF('d').show()" update="a">
+					</p:commandButton>
+
+
+					<p:dialog width="550px" resizable="false" draggable="false"
+						header="Registrar Pagamento" id="a" widgetVar="d"
+						showEffect="fade" hideEffect="fade" modal="true"
+						style="width: 50% !important;">
+						<div>
+							<p:outputLabel id="x"
+								style="display: inline-block !important; width:400px;"
+								value="Deseja efetuar o pagamento desta ordem?"
+								icon="ui-icon-alert" />
+							<br />
+							<p:outputLabel
+								style="display: inline-block !important; width:300px; font-weight: bold;"
+								id="valor_l" value="Valor: R$ #{ordemMB.ordem.valor}"></p:outputLabel>
+							<br />
+
+						</div>
+						<br />
+						<div
+							style="display: inline-block !important; margin-right: 20px; margin-left: -25px;">
+							<p:commandButton value="Confirmar" ajax="false"
+								action="#{ordemMB.finalizarPagamento}"
+								styleClass="ui-confirmdialog-yes" icon="ui-icon-check" />
+
+						</div>
+					</p:dialog>
+
+				</h:form>
+
+			</p:fieldset>
+		</div>
+	</ui:define>
+
+</ui:composition>
+</html>

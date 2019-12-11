@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="ISO-8859-1" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+xmlns:f="http://java.sun.com/jsf/core"
+xmlns:h="http://java.sun.com/jsf/html"
+xmlns:ui="http://java.sun.com/jsf/facelets"
+xmlns:p="http://primefaces.org/ui"
+>
+
+<ui:composition template="_template.xhtml">
+	<ui:define name="corpo">
+		<div id="conteudo">
+			<h:form id="login">
+				
+					
+					<h1 style="font-weight:3px; font-size:large; margin-left: 40px; margin-bottom: 20px;">Acesso</h1>
+					<h:outputLabel value="Usuário" for="usuario"></h:outputLabel>
+					<p:inputText id="usuario" value="#{usuarioMB.usuario.usuario}"></p:inputText>
+					
+					<h:outputLabel value="Senha" for="senha"></h:outputLabel>
+					<p:inputText id="senha" value="#{usuarioMB.usuario.senha}" type="password"></p:inputText>
+					
+					<p:commandButton value="Entrar" action="#{usuarioMB.logIn}"></p:commandButton>
+					
+					
+			</h:form>
+		</div>
+	</ui:define>
+	</ui:composition>
+</html>

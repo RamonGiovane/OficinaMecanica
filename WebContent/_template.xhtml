@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="ISO-8859-1" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	  xmlns:h="http://java.sun.com/jsf/html"
+	  xmlns:f="http://java.sun.com/jsf/core"
+	  xmlns:ui="http://java.sun.com/jsf/facelets"
+	  xmlns:p="http://primefaces.org/ui">
+<h:head>
+	<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1" />
+	<title>Oficina Mecânica</title>
+	<h:outputStylesheet name="style.css" library="css"></h:outputStylesheet>
+	<h:outputStylesheet library="css" name="fonts-awesome.css"/>
+</h:head>
+
+<h:body>
+	
+
+
+	<div id="cabecalho" style="margin-top: -15px !important; padding-top: 15px !important">
+		<h:form>
+			<h1><a href="menu.xhtml" id="logo">Oficina Mecânica</a></h1>
+			<div id="usuarioLogado">
+				<h:outputText rendered="#{not empty usuarioMB.usuario.usuario}" 
+				value="Logado como: #{usuarioMB.usuario.papel} #{usuarioMB.usuario.usuario}"></h:outputText>
+				<h:commandLink rendered="#{not empty usuarioMB.usuario.usuario}" value="(Sair)" action="#{usuarioMB.logOut}"></h:commandLink>
+			</div>
+		</h:form>
+	</div>
+	
+	<div id="menu">
+		<h:form rendered="#{not empty usuarioMB.usuario.usuario}">  
+		    <p:growl id="messages"/>
+		 
+	    	<p:menubar>
+		        <p:submenu label="Cliente">
+		          	
+		          	<p:submenu label="Novo" rendered="#{usuarioMB.atendente}" icon="ui-icon-document">
+		             	<p:menuitem value="Cliente" url="novo-cliente.xhtml" />
+		             	<p:menuitem value="Veículo" url="novo-veiculo.xhtml" />
+		            </p:submenu>
+		          	
+		          	<p:submenu label="Gerenciar" icon="ui-icon-gear">
+		             	<p:menuitem value="Clientes" url="listar-clientes.xhtml" />
+		             	<p:menuitem value="Veículos" url="listar-veiculos.xhtml" />
+		            </p:submenu>
+		      	</p:submenu> 
+		 		
+		 		<p:submenu label="Peça">
+		             	<p:menuitem value="Nova" rendered="#{usuarioMB.atendente}" url="nova-peca.xhtml"  icon="ui-icon-document"/>
+		             	<p:menuitem value="Gerenciar" url="listar-pecas.xhtml" icon="ui-icon-gear" />
+		        </p:submenu>
+		        
+		        <p:submenu label="Ordem de Serviço">
+		             	<p:menuitem value="Nova" rendered="#{usuarioMB.mecanico}" url="nova-ordem.xhtml"  icon="ui-icon-document"/>
+		             	<p:menuitem value="Gerenciar" url="listar-ordens.xhtml" icon="ui-icon-gear" />
+		             	<p:menuitem value="Registrar Pagamento"  rendered="#{usuarioMB.gerente}" url="pagamento.xhtml" icon="fa fa-fw fa-dollar" />
+		        </p:submenu>
+		        
+		    </p:menubar>
+		</h:form>
+	</div>
+	
+	<div id="conteudo">
+		<ui:insert name="corpo"></ui:insert>
+	</div>
+	
+	<div id="rodape">
+		©2019 - Ramon Software - Todos os Direitos Reservados.
+	</div>
+</h:body>
+<body>
+
+</body>
+</html>

@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="ISO-8859-1" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui">
+<ui:composition template="_template.xhtml">
+
+	<ui:define name="corpo">
+		<div id="conteudo">
+			<h2><h:outputLabel styleClass="titulo" style="margin-left: -20px !important;" value="Retirar Peça"></h:outputLabel></h2>
+			
+				<h:form rendered="#{!usuarioMB.mecanico}" id="dialog_retirar_peca">
+					<p:dialog header="Acesso Negado" resizable="false" widgetVar="dlg2"
+					modal="true" height="80" closable="false" visible="true" draggable="false">
+
+				<h:outputText value="Desculpe, #{usuarioMB.usuario.usuario}, você não tem permissão para acessar esta página!" />
+				
+				<p:commandButton value="Voltar ao Menu" action="menu"></p:commandButton>
+
+			</p:dialog>
+			</h:form>
+			
+			<h:form id="cadastro">
+				<h:outputLabel value="Quantidade a Retirar:" for="quantidade"></h:outputLabel>
+				<p:inputText id="quantidade" value="#{pecaMB.peca.quantidade}"
+					required="true" requiredMessage="Digite a quantidade de peças!"
+					converterMessage="Quantidade de peças inválida!"></p:inputText>
+				
+				<h:outputLabel value="Quantidade Disponível" for="disponivel"></h:outputLabel>
+					<p:inputText id="disponivel" value="#{pecaMB.peca.quantidade}"
+					readonly="#{facesContext.renderResponse}">
+				</p:inputText>				
+			<h:commandButton value="Retirar" action="#{pecaMB.grava()}"></h:commandButton>
+			</h:form>
+			
+				
+		</div>
+		
+	</ui:define>
+ 
+</ui:composition>
+
+</html>

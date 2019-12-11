@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="ISO-8859-1" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui">
+
+<ui:composition template="_template.xhtml">
+	<ui:define name="corpo">
+		<div id="conteudo">
+			<h:form rendered="#{!usuarioMB.atendente}" id="dialog_veiculos">
+				<p:dialog header="Acesso Negado" resizable="false" widgetVar="dlg2"
+					modal="true" height="80" closable="false" visible="true" draggable="false">
+
+				<h:outputText value="Desculpe, #{usuarioMB.usuario.usuario}, você não tem permissão para acessar esta página!" />
+				
+				<p:commandButton value="Voltar ao Menu" action="menu"></p:commandButton>
+
+			</p:dialog>
+			</h:form>
+			
+			<h:form id="cadastro">
+				<h2>
+					<h:outputLabel styleClass="titulo_" value="Nova Peça"
+						rendered="#{pecaMB.peca.id eq null}"></h:outputLabel>
+					<h:outputLabel styleClass="titulo_" value="Editar Peça"
+						rendered="#{pecaMB.peca.id ne null}"></h:outputLabel>
+				</h2>
+
+				<h:outputLabel value="Nome da Peça:" for="nome"></h:outputLabel>
+				<p:inputText id="nome" value="#{pecaMB.peca.nome}" required="true"
+					requiredMessage="Digite o nome da peça!"></p:inputText>
+
+				<h:outputLabel value="Fornecedor:" for="fornecedor"></h:outputLabel>
+				<p:inputText id="fornecedor" value="#{pecaMB.peca.fornecedor}"
+					required="true" requiredMessage="Digite o fornecedor da peça!"></p:inputText>
+
+				<h:outputLabel value="Tipo:" for="tipo"></h:outputLabel>
+				<p:inputText id="tipo" value="#{pecaMB.peca.tipo}" required="true"
+					requiredMessage="Digite a marca da peça!"></p:inputText>
+
+				<h:outputLabel value="Marca:" for="marca"></h:outputLabel>
+				<p:inputText id="marca" value="#{pecaMB.peca.marca}" required="true"
+					requiredMessage="Digite a marca da peça!"></p:inputText>
+
+				<h:outputLabel value="Quantidade:" for="quantidade"></h:outputLabel>
+				<p:inputText id="quantidade" value="#{pecaMB.peca.quantidade}"
+					required="true" requiredMessage="Digite a quantidade de peças!"
+					converterMessage="Quantidade de peças inválida!"></p:inputText>
+
+				<h:commandButton value="Salvar" action="#{pecaMB.grava()}"></h:commandButton>
+			</h:form>
+
+		
+		</div>
+
+
+	</ui:define>
+
+</ui:composition>
+
+
+</html>

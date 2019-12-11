@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="ISO-8859-1" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	>
+
+<ui:composition template="_template.xhtml">
+
+<ui:define name="corpo">
+
+	<div id="conteudo">
+			<h:form rendered="#{!usuarioMB.atendente}" id="dialog_veiculos">
+				<p:dialog header="Acesso Negado" resizable="false" widgetVar="dlg2"
+					modal="true" height="80" closable="false" visible="true" draggable="false">
+
+				<h:outputText value="Desculpe, #{usuarioMB.usuario.usuario}, você não tem permissão para acessar esta página!" />
+				
+				<p:commandButton value="Voltar ao Menu" action="menu"></p:commandButton>
+
+				</p:dialog>
+			</h:form>
+		
+		<h:form rendered="#{empty clienteMB.clientes}">
+				<p:dialog header="Acesso Negado" resizable="false" widgetVar="dlg2" modal="true" height="80" closable="false"
+				  visible="true" draggable="false">
+    			
+    				<h:outputText value="Não há clientes cadastrados!" />
+    				<p:commandButton value="Voltar ao Menu" action="menu"></p:commandButton>
+				
+				</p:dialog>   
+		</h:form>
+		
+		<h:form id="cadastro">
+			<h2>
+				<h:outputLabel styleClass="titulo_" value="Novo Veículo" rendered="#{veiculoMB.veiculo.id eq null}"></h:outputLabel>
+				<h:outputLabel styleClass="titulo_" value="Editar Veículo" rendered="#{veiculoMB.veiculo.id ne null}"></h:outputLabel>
+			</h2>
+			
+			<h:outputLabel value="Proprietário:" for="cliente"></h:outputLabel>
+			<h:selectOneMenu id="cliente" value="#{veiculoMB.idCliente}" required="true">
+				<f:selectItems 
+					value="#{clienteMB.clientes}"
+					var="c"
+					itemLabel="#{c.nome}"
+					itemValue="#{c.id}">
+				</f:selectItems>
+			</h:selectOneMenu>
+		
+			
+	
+			<h:outputLabel value="Ano de Fabricação:" for="anoFabricacao"></h:outputLabel>
+			<p:inputMask id="anoFabricacao" value="#{veiculoMB.veiculo.anoFabricacao}" mask="9999"
+				required="true" requiredMessage="Digite o ano em que o veículo foi fabricado!"></p:inputMask>
+			
+			<h:outputLabel value="Ano do Modelo:" for="anoModelo"></h:outputLabel>
+			<p:inputMask  id="anoModelo" value="#{veiculoMB.veiculo.anoModelo}" mask="9999" required="true"
+				requiredMessage="Digite o ano em que o modelo foi lançado!"></p:inputMask>
+			
+			<h:outputLabel value="Placa:" for="placa"></h:outputLabel>
+			<p:inputMask id="placa" value="#{veiculoMB.veiculo.placa}" mask="aaa-9999" required="true" requiredMessage="Digite a placa!"></p:inputMask>
+			
+			<h:outputLabel value="Modelo:" for="modelo"></h:outputLabel>
+			<p:inputText id="modelo" value="#{veiculoMB.veiculo.modelo}" required="true" requiredMessage="Digite o nome do modelo!"></p:inputText>
+			
+			<h:outputLabel value="Marca:" for="marca"></h:outputLabel>
+			<p:inputText id="marca" value="#{veiculoMB.veiculo.marca}" required="true" requiredMessage="Digite o nome da marca!"></p:inputText>
+			
+			
+			<h:commandButton value="Salvar" action="#{veiculoMB.grava()}"></h:commandButton>
+		</h:form>
+	</div>	
+</ui:define>
+</ui:composition>
+
+</html>

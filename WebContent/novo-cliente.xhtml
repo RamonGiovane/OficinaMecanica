@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="ISO-8859-1" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui">
+
+<ui:composition template="_template.xhtml">
+	<ui:define name="corpo">
+	
+		<div id="conteudo">
+		
+			<h:form rendered="#{!usuarioMB.atendente}" id="dialog_veiculos">
+				<p:dialog header="Acesso Negado" resizable="false" widgetVar="dlg2"
+					modal="true" height="80" closable="false" visible="true" draggable="false">
+
+				<h:outputText value="Desculpe, #{usuarioMB.usuario.usuario}, você não tem permissão para acessar esta página!" />
+				
+				<p:commandButton value="Voltar ao Menu" action="menu"></p:commandButton>
+
+				</p:dialog>
+			</h:form>
+		
+			<h:form id="cadastro">
+				<h2>
+					<h:outputLabel styleClass="titulo_" value="Novo Cliente" rendered="#{clienteMB.cliente.id eq null}"></h:outputLabel>
+					<h:outputLabel styleClass="titulo_" value="Editar Cliente" rendered="#{clienteMB.cliente.id ne null}"></h:outputLabel>
+				</h2>
+				
+				<h:outputLabel value="Nome do Cliente:" for="nome"></h:outputLabel>
+				<p:inputText id="nome" value="#{clienteMB.cliente.nome}" required="true" 
+					requiredMessage="Digite o nome do cliente!"></p:inputText>
+				
+				<h:outputLabel value="Telefone:" for="telefone"></h:outputLabel>
+				<p:inputMask id="telefone" value="#{clienteMB.cliente.telefone}" mask="(99)99999999?9"  required="true"
+				 	requiredMessage="Digite o telefone de contato!"></p:inputMask>
+				
+				<h:outputLabel value="CPF:" for="CPF"></h:outputLabel>
+				<p:inputMask id="CPF" value="#{clienteMB.cliente.CPF}" mask="999.999.999-99" required="true" 
+					requiredMessage="Digite o CPF!"></p:inputMask>
+				
+				<h:outputLabel value="E-mail:" for="email"></h:outputLabel>
+				<p:inputText id="email" value="#{clienteMB.cliente.email}" validatorMessage="Email inválido!">
+					<f:validateRegex pattern="[\w\.-]*[a-zA-Z0-9_]@[\w\.-]*[a-zA-Z0-9]\.[a-zA-Z][a-zA-Z\.]*[a-zA-Z]"/>
+				</p:inputText>
+				
+				<h:outputLabel value="Endereço:" for="endereco"></h:outputLabel>
+				<p:inputText id="endereco" value="#{clienteMB.cliente.endereco}" required="true" requiredMessage="Digite o endereço!"></p:inputText>
+				
+				<h:commandButton value="Salvar" action="#{clienteMB.grava}"></h:commandButton>
+			</h:form>
+		</div>	
+		</ui:define>
+</ui:composition>
+</html>
