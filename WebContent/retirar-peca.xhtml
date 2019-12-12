@@ -9,30 +9,49 @@
 
 	<ui:define name="corpo">
 		<div id="conteudo">
-			<h2><h:outputLabel styleClass="titulo" style="margin-left: -20px !important;" value="Retirar Peça"></h:outputLabel></h2>
-			
-				<h:form rendered="#{!usuarioMB.mecanico}" id="dialog_retirar_peca">
-					<p:dialog header="Acesso Negado" resizable="false" widgetVar="dlg2"
-					modal="true" height="80" closable="false" visible="true" draggable="false">
+			<h2><h:outputLabel styleClass="titulo" style="margin-left: -70px !important;" value="Retirar Peça"></h:outputLabel></h2>
 
-				<h:outputText value="Desculpe, #{usuarioMB.usuario.usuario}, você não tem permissão para acessar esta página!" />
-				
-				<p:commandButton value="Voltar ao Menu" action="menu"></p:commandButton>
+			<h:form rendered="#{!usuarioMB.mecanico}" id="dialog_retirar_peca">
+				<p:dialog header="Acesso Negado" resizable="false" widgetVar="dlg2"
+					modal="true" height="80" closable="false" visible="true"
+					draggable="false">
 
-			</p:dialog>
+					<h:outputText
+						value="Desculpe, #{usuarioMB.usuario.usuario}, você não tem permissão para acessar esta página!" />
+
+					<p:commandButton value="Voltar ao Menu" action="menu"></p:commandButton>
+
+				</p:dialog>
 			</h:form>
-			
+
+			<h:form rendered="#{pecaMB.peca eq null or pecaMB.peca.quantidade eq 0}" id="dialog_retirar_peca2">
+				<p:dialog header="Erro" resizable="false" widgetVar="dlg2"
+					modal="true" height="80" closable="false" visible="true"
+					draggable="false">
+
+					<h:outputText
+						value="Peça inválida ou indisponível." />
+
+					<p:commandButton value="Voltar ao Menu" action="menu"></p:commandButton>
+
+				</p:dialog>
+			</h:form>
 			<h:form id="cadastro">
-				<h:outputLabel value="Quantidade a Retirar:" for="quantidade"></h:outputLabel>
-				<p:inputText id="quantidade" value="#{pecaMB.peca.quantidade}"
-					required="true" requiredMessage="Digite a quantidade de peças!"
-					converterMessage="Quantidade de peças inválida!"></p:inputText>
 				
-				<h:outputLabel value="Quantidade Disponível" for="disponivel"></h:outputLabel>
-					<p:inputText id="disponivel" value="#{pecaMB.peca.quantidade}"
+				
+				<h:outputLabel value="Disponível:" for="disponivel"></h:outputLabel>
+				<p:inputText id="disponivel" style="font-weight: bold;" disabled="true" value="#{pecaMB.peca.quantidade}"
 					readonly="#{facesContext.renderResponse}">
-				</p:inputText>				
-			<h:commandButton value="Retirar" action="#{pecaMB.grava()}"></h:commandButton>
+				</p:inputText>		
+				
+				<h:outputLabel value="Quantidade a Retirar:" for="quantidade"></h:outputLabel>
+				<p:inputNumber id="quantidade" value="1"  validatorMessage="Quantidade de peças inválida"
+					required="true" requiredMessage="Digite a quantidade de peças!"
+					converterMessage="Quantidade de peças inválida!" minValue="1" maxValue="#{pecaMB.peca.quantidade}">
+					
+				</p:inputNumber>
+						
+			<p:commandButton value="Retirar" ajax="true" validateClient="true" action="#{pecaMB.toString()}"></p:commandButton>
 			</h:form>
 			
 				

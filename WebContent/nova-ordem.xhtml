@@ -85,8 +85,9 @@
 						
 						<div>
 							<h:outputLabel for="minMax" value="Quantidade:"></h:outputLabel>
-							<p:inputText id="minMax" value="#{ordemMB.quantidadePeca}" 
-								required="true" requiredMessage="Digite a quantidade de peças!"></p:inputText>
+							<p:inputNumber 
+								id="minMax" value="#{ordemMB.quantidadePeca}"  minValue="1" maxValue="99">
+							</p:inputNumber>
 							<p:commandButton icon="ui ui-icon-plus"  value="Adicionar" 
 								id="adicionar" styleClass="btn btn-info" action="#{ordemMB.selecionarPeca}">
 								<f:ajax execute="@form" render=":cadastro :lista"></f:ajax>
@@ -114,7 +115,8 @@
 					</h:column>
 					<h:column>
 						<f:facet name="header">Remover</f:facet>
-						<p:commandButton icon="fa fa-fw fa-remove" styleClass="btn btn-danger" actionListener="#{ordemMB.desconsiderarPeca(item)}">
+						<p:commandButton icon="fa fa-fw fa-remove" styleClass="btn btn-danger" 
+							actionListener="#{ordemMB.desconsiderarPeca(item)}">
 							<f:ajax render="@form"></f:ajax>
 						</p:commandButton>
 					</h:column>
