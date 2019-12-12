@@ -46,6 +46,15 @@ public class PecaOrdem {
 	public void setOrdem(OrdemServico ordem) {
 		this.ordem = ordem;
 	}
+	@Override
+	public String toString() {
+		StringBuilder builder = new StringBuilder();
+		builder.append("\n");
+		builder.append(peca.getNome());
+		builder.append("\t x ");
+		builder.append(quantidade);
+		return builder.toString();
+	}
 	
 	
 }

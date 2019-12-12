@@ -52,7 +52,7 @@ public class OrdemServico {
 		return servico;
 	}
 	public void setServico(String servico) {
-		this.servico = servico;
+		this.servico = servico + "\n\n";
 	}
 	public String getStatus() {
 		return status;
@@ -79,5 +79,12 @@ public class OrdemServico {
 		this.pecasDaOrdem = pecasDaOrdem;
 	}
 	
+	public String getDetalhesPecas() {
+		StringBuilder strBuilder = new StringBuilder();
+		for(PecaOrdem p : pecasDaOrdem)
+			strBuilder.append(p.toString());
+		
+		return strBuilder.toString();
+	}
 	
 }

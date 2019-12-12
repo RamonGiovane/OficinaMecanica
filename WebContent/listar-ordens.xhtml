@@ -90,11 +90,20 @@
 			</h:form>
 			
 			
-				<p:dialog id="dd" header="Detalhes da Ordem" resizable="false" widgetVar="servico" modal="true" height="50" closable="true"
-					  			visible="false" draggable="true">
+				<p:dialog id="dd" header="Detalhes da Ordem" resizable="false"
+						 widgetVar="servico" modal="true" height="200" width="25vw" closable="true"
+					  	 visible="false" draggable="true">
 		    	
 			    	<h:form>
-			    		<p:outputLabel id="lbl" value="#{ordemMB.ordem.servico}" />
+			    		
+			    		<p:outputLabel id="lbl" style="width: 50%;"  value="#{ordemMB.ordem.servico}" />
+			    		<br></br> <br></br>
+			    		<div>
+			    			<p:outputLabel style="margin-top: 10px; font-weight: bold; width: 50%" id="lbl2" value="Peças Necessárias" />
+			    		</div>
+			    		<br></br> 
+			    		<p:outputLabel id="lbl3" style="margin-top: 10px; display: block; float: left" value="#{ordemMB.detalhesPecas}" />
+			    		
 					</h:form>  
 				</p:dialog>
 			 

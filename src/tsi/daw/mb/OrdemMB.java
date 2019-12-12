@@ -71,6 +71,15 @@ public class OrdemMB{
 	}
 
 
+	
+	public String getDetalhesPecas() {
+		String str = ordem.getDetalhesPecas();
+		ordem = new OrdemServico();
+		return str;
+		
+	}
+	
+	
 	public void selecionarPeca(){
 		PecaOrdem p = new PecaOrdem();
 		Peca peca = new DAO<>(Peca.class).buscaPorId(idPeca);
