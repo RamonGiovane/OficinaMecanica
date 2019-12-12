@@ -45,6 +45,15 @@ public class PecaMB {
 		return "retirar-peca?faces-redirect=true";
 	}
 	
+	public String retirarPecas() {
+		if(peca != null) {
+			peca.retirarPecas();
+			return grava();
+		}
+		return "listar-pecas?faces-redirect=true";
+		
+	}
+	
 	public List<Peca> getPecas(){
 		DAO<Peca> dao = new DAO<>(Peca.class);
 		pecas = dao.listaTodos();

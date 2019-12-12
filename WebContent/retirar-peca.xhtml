@@ -45,13 +45,14 @@
 				</p:inputText>		
 				
 				<h:outputLabel value="Quantidade a Retirar:" for="quantidade"></h:outputLabel>
-				<p:inputNumber id="quantidade" value="1"  validatorMessage="Quantidade de peças inválida"
+				<p:inputNumber id="quantidade" value="#{pecaMB.peca.quantidadeARetirar}"
+					validatorMessage="Quantidade de peças inválida"
 					required="true" requiredMessage="Digite a quantidade de peças!"
 					converterMessage="Quantidade de peças inválida!" minValue="1" maxValue="#{pecaMB.peca.quantidade}">
 					
 				</p:inputNumber>
 						
-			<p:commandButton value="Retirar" ajax="true" validateClient="true" action="#{pecaMB.toString()}"></p:commandButton>
+			<h:commandButton value="Retirar" ajax="true" validateClient="true" action="#{pecaMB.retirarPecas}"></h:commandButton>
 			</h:form>
 			
 				

@@ -5,6 +5,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.SequenceGenerator;
+import javax.persistence.Transient;
 
 @Entity
 public class Peca {
@@ -16,6 +17,9 @@ public class Peca {
 	private String nome, fornecedor, tipo, marca;
 	private int quantidade;
 	
+	@Transient
+	private int quantidadeARetirar = 1;
+	
 	public Long getId() {
 		return id;
 	}
@@ -24,6 +28,17 @@ public class Peca {
 	}
 	public String getNome() {
 		return nome;
+	}
+	public int getQuantidadeARetirar() {
+		return quantidadeARetirar;
+	}
+	
+	public void retirarPecas() {
+		quantidade -= quantidadeARetirar;
+	}
+	
+	public void setQuantidadeARetirar(int quantidadeARetirar) {
+		this.quantidadeARetirar = quantidadeARetirar;
 	}
 	public void setNome(String nome) {
 		this.nome = nome;
