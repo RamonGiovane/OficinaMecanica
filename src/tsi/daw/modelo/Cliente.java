@@ -37,9 +37,7 @@ public class Cliente {
 	}
 	public void setTelefone(String telefone) {
 		this.telefone = telefone;
-
 	}
-	
 	public String getCPF() {
 		return CPF;
 	}
@@ -64,10 +62,12 @@ public class Cliente {
 	public void setEndereco(String endereco) {
 		this.endereco = endereco;
 	}
+	
 	@Override
 	public String toString() {
 		return nome;
 	}
+	
 	public List<Veiculo> getVeiculos() {
 		return veiculos;
 	}

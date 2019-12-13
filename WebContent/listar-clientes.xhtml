@@ -54,7 +54,7 @@
 					
 					<p:column headerText="Ações" rendered="#{!usuarioMB.mecanico}">
 						<p:commandButton icon="fa fa-fw fa-edit" ajax="false" action="#{clienteMB.alterar(c)}" styleClass="btn btn-warning" 
-						rendered="#{usuarioMB.atendente}"  />
+						rendered="#{usuarioMB.recepcionista}"  />
 						<p:commandButton icon="fa fa-fw fa-remove" styleClass="btn btn-danger" actionListener="#{clienteMB.remove(c)}" rendered="#{usuarioMB.gerente}">
 							<f:ajax render="@form"></f:ajax>
 						</p:commandButton>

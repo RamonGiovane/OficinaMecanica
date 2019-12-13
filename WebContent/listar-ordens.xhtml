@@ -42,7 +42,10 @@
 					</p:column>
 					
 					<p:column headerText="Valor">
-						#{o.valor}
+						R$
+						<h:outputText value="#{o.valor}">
+						  	<f:convertNumber maxFractionDigits="2" minFractionDigits="2" currencyCode="BRL" locale="pt_BR" />
+						 </h:outputText>
 					</p:column>
 					
 					
@@ -64,7 +67,7 @@
 					
 					<p:column headerText="Ações" rendered="#{!usuarioMB.mecanico}">
 						<p:commandButton id="aprovar" icon="fa fa-fw fa-check"  action="#{ordemMB.aprovar(o)}" styleClass="btn btn-success" 
-						rendered="#{o.status eq 'Criada' and usuarioMB.atendente}">
+						rendered="#{o.status eq 'Criada' and usuarioMB.recepcionista}">
 							<f:ajax render="@form"></f:ajax>
 						</p:commandButton>
 						<p:tooltip id="ttAprovar" for="aprovar" value="Aprovar Ordem de Serviço" position="top"/>

@@ -1,6 +1,7 @@
 package tsi.daw.modelo;
 
 import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.Date;
 import java.util.List;
 
@@ -14,7 +15,7 @@ import javax.persistence.OneToOne;
 import javax.persistence.SequenceGenerator;
 
 @Entity
-public class OrdemServico {
+public class OrdemServico implements Comparator<OrdemServico>{
 	@Id
 	@SequenceGenerator(name="ordem_id", sequenceName="ordem_seq", allocationSize=1)
 	@GeneratedValue(generator="ordem_id", strategy=GenerationType.SEQUENCE)
@@ -85,6 +86,10 @@ public class OrdemServico {
 			strBuilder.append(p.toString());
 		
 		return strBuilder.toString();
+	}
+	@Override
+	public int compare(OrdemServico o1, OrdemServico o2) {
+		return o1.dataOrcamento.compareTo(o2.dataOrcamento);
 	}
 	
 }

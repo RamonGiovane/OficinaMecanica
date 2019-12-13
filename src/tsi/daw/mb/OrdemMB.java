@@ -18,7 +18,7 @@ import tsi.daw.modelo.Veiculo;
 
 @SessionScoped
 @ManagedBean
-public class OrdemMB{
+public class OrdemMB {
 	private OrdemServico ordem = new OrdemServico();
 	private List<Peca> pecas = new ArrayList<>();
 	private List<Veiculo> veiculos = new ArrayList<>();
@@ -210,6 +210,7 @@ public class OrdemMB{
 	public List<OrdemServico> getOrdens() {
 		DAO<OrdemServico> dao = new DAO<>(OrdemServico.class);
 		ordens = dao.listaTodos();
+		ordens.sort(new OrdemServico().reversed());
 		return ordens;
 	}
 
@@ -249,6 +250,8 @@ public class OrdemMB{
 	public void setOrdemFinalizada(boolean ordemFinalizada) {
 		this.ordemFinalizada = ordemFinalizada;
 	}
+
+
 
 
 }

@@ -54,7 +54,7 @@
 					</p:column>
 					
 					<p:column headerText="Ações"  rendered="#{!usuarioMB.mecanico}">
-							<p:commandButton icon="fa fa-fw fa-edit" ajax="false" action="#{veiculoMB.altera(v)}"  rendered="#{usuarioMB.atendente}"
+							<p:commandButton icon="fa fa-fw fa-edit" ajax="false" action="#{veiculoMB.altera(v)}"  rendered="#{usuarioMB.recepcionista}"
 							 styleClass="btn btn-warning"></p:commandButton>
 							<p:commandButton icon="fa fa-fw fa-remove" styleClass="btn btn-danger"  rendered="#{usuarioMB.gerente}"
 							actionListener="#{veiculoMB.remove(v)}">

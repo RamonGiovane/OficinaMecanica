@@ -10,7 +10,7 @@ import tsi.daw.modelo.Usuario;
 @ManagedBean
 public class UsuarioMB {
 	private Usuario usuario = new Usuario();
-	private boolean mecanico, gerente, atendente;
+	private boolean mecanico, gerente, recepcionista;
 	public String logIn() {
 		UsuarioDAO dao = new UsuarioDAO();
 		
@@ -36,28 +36,29 @@ public class UsuarioMB {
 	
 	private void definirPermissao(){
 		switch(usuario.getPapel()){
-		case "atendente":
+		case "Recepcionista":
 			mecanico = false;
 			gerente = false;
-			atendente = true;
+			recepcionista = true;
 			break;
 		
-		case "gerente":
+		case "Gerente":
 			mecanico = false;
 			gerente = true;
-			atendente = false;
+			recepcionista = false;
 			break;
 		
-		case "mecanico":
+		case "Mecânico":
 			mecanico = true;
 			gerente = false;
-			atendente = false;
+			recepcionista = false;
 			break;
 			
 	}
 	}
 	public String logOut(){
 		usuario = new Usuario();
+		mecanico = gerente = recepcionista = false;
 		return "login?faces-redirect=true";
 	}
 	
@@ -90,12 +91,12 @@ public class UsuarioMB {
 		this.gerente = gerente;
 	}
 
-	public boolean isAtendente() {
-		return atendente;
+	public boolean isRecepcionista() {
+		return recepcionista;
 	}
 
-	public void setAtendente(boolean atendente) {
-		this.atendente = atendente;
+	public void setRecepcionista(boolean atendente) {
+		this.recepcionista = atendente;
 	}
 	
 }
